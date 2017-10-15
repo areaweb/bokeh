@@ -245,7 +245,7 @@ def _get_legend_item_label(kwargs):
             # Do the simple thing first
             legend_item_label = value(legend)
             # But if there's a source - try and do something smart
-            if source and hasattr(source, 'column_names'):
+            if source is not None and hasattr(source, 'column_names'):
                 if legend in source.column_names:
                     legend_item_label = field(legend)
         else:
