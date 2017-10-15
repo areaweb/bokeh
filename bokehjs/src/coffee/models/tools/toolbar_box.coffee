@@ -72,8 +72,10 @@ export class ProxyToolbar extends ToolbarBase
       actions[tool.type].push(tool)
 
     # Add a proxy for each of the groups of tools.
-    make_proxy = (tools, active=false) ->
-      return new ToolProxy({
+    @_proxied_tools = []
+
+    make_proxy = (tools, active=false) =>
+      proxy = new ToolProxy({
         tools: tools,
         event_type: tools[0].event_type,
         tooltip: tools[0].tool_name
@@ -81,6 +83,9 @@ export class ProxyToolbar extends ToolbarBase
         icon: tools[0].icon
         active: active
       })
+      proxy.button_view = tools[0].button_view
+      @_proxied_tools.push(proxy)
+      return proxy
 
     for event_type of gestures
       @gestures[event_type].tools = []
